@@ -1,0 +1,57 @@
+name: gds_docs
+source:
+  collection: gds-docs
+  database: Documents
+target:
+  table: GDS_DOCS
+  key: DOC_URI
+  mode: merge
+raw:
+  include: true
+  column: RAW_DOC
+columns:
+  AS_OF_DATE:
+    path: asOfDate
+    type: DATE
+  DOC_ID:
+    path: docId
+    type: STRING
+  EVIDENCE_CITATION:
+    path: evidence.citation
+    type: STRING
+  EVIDENCE_CONFIDENCE:
+    path: evidence.confidence
+    type: FLOAT
+  EVIDENCE_DOCUMENT_TYPE:
+    path: evidence.documentType
+    type: STRING
+  HIERARCHY_IS_ULTIMATE_PARENT:
+    path: hierarchy.isUltimateParent
+    type: BOOLEAN
+  HIERARCHY_LEVELS_TO_ULTIMATE:
+    path: hierarchy.levelsToUltimate
+    type: NUMBER
+  HIERARCHY_ULTIMATE_PARENT_NAME:
+    path: hierarchy.ultimateParentName
+    type: STRING
+  PARTY_COUNTRY_OF_INCORPORATION:
+    path: party.countryOfIncorporation
+    type: STRING
+  PARTY_LEGAL_NAME:
+    path: party.legalName
+    type: STRING
+  PARTY_LEI:
+    path: party.lei
+    type: STRING
+  PARTY_SECTOR:
+    path: party.sector
+    type: STRING
+  SOURCE_SYSTEM:
+    path: sourceSystem
+    type: STRING
+  HIERARCHY_PARENT_NAME:
+    path: hierarchy.parentName
+    type: STRING
+  PARTY_TICKER:
+    path: party.ticker
+    type: STRING
