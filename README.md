@@ -18,7 +18,10 @@ At a new client you do not know what the documents look like. Three things follo
 ## Usage
 
 ```powershell
-python migrate.py discover                       # what databases/collections exist
+python migrate.py stat --all                     # docs / collections / formats per database
+python migrate.py fetch --out docs.csv           # every document URI + format -> CSV
+python migrate.py bench --sample 500 --compare   # read speed, and how long the full run would take
+python migrate.py sfcheck                        # can we reach Snowflake? (--write to test writing)
 python migrate.py profile --collection trades    # inspect docs -> mappings/trades.yml
 #   ... review and trim mappings/trades.yml ...
 python migrate.py sql     --mapping trades       # see the SQL, connect to nothing
@@ -27,6 +30,11 @@ python migrate.py run     --mapping trades       # extract + load to Snowflake
 
 `extract` and `load` can also be run separately; `extract` writes
 `output/<name>.jsonl` so you can inspect exactly what will be loaded.
+
+Add `--uri /path/doc.json` (repeatable) to `extract` or `run` to work on just
+those documents. Each document is read together with its MarkLogic properties
+and a SHA-256 computed inside MarkLogic over the exact text returned; the text is
+hashed again locally and must match, or the document is reported as failed.
 
 ### Selecting documents
 
@@ -87,7 +95,7 @@ FROM TRADES;
 
 | Path | Role |
 |---|---|
-| `migrate.py` | CLI entry point: discover / profile / extract / load / run / sql |
+| `migrate.py` | CLI entry point: stat / fetch / profile / extract / load / run / sql |
 | `config.py` | `.env` connection settings and the YAML mapping model |
 | `marklogic.py` | MarkLogic REST client, XML->dict, path walking |
 | `profiler.py` | Schema inference from a document sample, column naming |
